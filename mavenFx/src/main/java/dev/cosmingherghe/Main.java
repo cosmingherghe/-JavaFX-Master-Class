@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -29,7 +30,7 @@ public class Main extends Application {
         //Demonstrating Proprieties
         Employee employee = new Employee("John", 80000);
         Label label = new Label("Name " + employee.getName() + " | Salary: " + employee.getSalary());
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 400, 800);
         Button button = new Button("Double salary");
 
         button.setOnAction(e -> {
@@ -59,6 +60,7 @@ public class Main extends Application {
 
         items.setItems(list);
         field2.setMaxWidth(100);
+        items.setMaxHeight(100);
         items.setMaxWidth(100);
         button1.setOnAction(e -> {
             if(!field2.textProperty().get().isEmpty()) {
@@ -66,8 +68,17 @@ public class Main extends Application {
             }
         });
 
+        //Events
+        Label labelEvent = new Label("Click the Event Button");
+        Button buttonEvent = new Button("Event");
+        buttonEvent.addEventHandler(
+                MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+                    labelEvent.setText("Thank You!");
+                });
+
         // Wrapping all together
-        root.getChildren().addAll(label, button, label1, field, field1, items, field2, button1);
+        root.getChildren().addAll(label, button, label1, field, field1, items, field2, button1,
+                labelEvent, buttonEvent);
         stage.setTitle("Properties Example");
         stage.setScene(scene);
         stage.show();
