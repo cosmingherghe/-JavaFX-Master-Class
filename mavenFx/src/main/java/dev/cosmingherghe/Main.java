@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -75,10 +79,25 @@ public class Main extends Application {
                 MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                     labelEvent.setText("Thank You!");
                 });
+        stage.setOnShowing(windowEvent -> {
+            System.out.println("Stage is showing");
+        });
+
+        // Group
+        Group group = new Group();
+        Button one = new Button("One");
+        Button two = new Button("Two");
+        one.setLayoutX(10);
+        one.setLayoutY(40);
+        two.layoutXProperty().bind(one.layoutYProperty().add(one.widthProperty().add(10)));
+        two.layoutXProperty().bind(one.layoutXProperty());
+        group.getChildren().addAll(one, two);
+        group.setEffect(new DropShadow());
+        group.setRotate(10);
 
         // Wrapping all together
         root.getChildren().addAll(label, button, label1, field, field1, items, field2, button1,
-                labelEvent, buttonEvent);
+                labelEvent, buttonEvent, group);
         stage.setTitle("Properties Example");
         stage.setScene(scene);
         stage.show();
